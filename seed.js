@@ -4,11 +4,17 @@ const User = require('./models/User');
 
 const seedUsers = async () => {
     try {
+        // Safety check: prevent running in production
+        if (process.env.NODE_ENV === 'production') {
+            console.error('❌ Cannot run seed in production environment');
+            process.exit(1);
+        }
+
         // Connect to MongoDB
         await mongoose.connect(process.env.MONGO_URI);
         console.log('✅ Connected to MongoDB');
 
-        // Clear existing users (optional - comment out if you want to keep existing users)
+        // Clear existing users
         await User.deleteMany({});
         console.log('🗑️  Cleared existing users');
 
