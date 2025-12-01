@@ -3,7 +3,12 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-const rosterRouter = require('./routes/rosterRoutes'); 
+// Import routes
+const authRouter = require('./routes/authRoutes');
+const rosterRouter = require('./routes/rosterRoutes');
+const scheduleRouter = require('./routes/scheduleRoutes');
+const resultsRouter = require('./routes/resultsRoutes');
+const highlightsRouter = require('./routes/highlightsRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -17,8 +22,12 @@ mongoose.connect(mongoUri)
     .then(() => console.log('✅ MongoDB connection successful!'))
     .catch(err => console.error('❌ MongoDB connection error:', err));
 
-
-app.use('/api/roster', rosterRouter); 
+// Register routes
+app.use('/api/auth', authRouter);
+app.use('/api/roster', rosterRouter);
+app.use('/api/schedule', scheduleRouter);
+app.use('/api/results', resultsRouter);
+app.use('/api/highlights', highlightsRouter); 
 
 
 app.get('/', (req, res) => {

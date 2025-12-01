@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const RosterMember = require('../models/RosterMember');
+const { authMiddleware, adminMiddleware } = require('../middleware/auth');
 
 // GET all roster members
 router.get('/', async (req, res) => {
@@ -25,8 +26,8 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// POST new roster member
-router.post('/', async (req, res) => {
+// POST new roster member (admin only)
+router.post('/', authMiddleware, adminMiddleware, async (req, res) => {
     const member = new RosterMember({
         name: req.body.name,
         position: req.body.position,
@@ -44,8 +45,8 @@ router.post('/', async (req, res) => {
     }
 });
 
-// PUT update roster member
-router.put('/:id', async (req, res) => {
+// PUT update roster member (admin only)
+router.put('/:id', authMiddleware, adminMiddleware, async (req, res) => {
     try {
         const member = await RosterMember.findById(req.params.id);
         if (!member) {
@@ -66,8 +67,8 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// DELETE roster member
-router.delete('/:id', async (req, res) => {
+// DELETE roster member (admin only)
+router.delete('/:id', authMiddleware, adminMiddleware, async (req, res) => {
     try {
         const member = await RosterMember.findById(req.params.id);
         if (!member) {
