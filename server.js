@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
 // Import routes
@@ -9,12 +11,20 @@ const rosterRouter = require('./routes/rosterRoutes');
 const scheduleRouter = require('./routes/scheduleRoutes');
 const resultsRouter = require('./routes/resultsRoutes');
 const highlightsRouter = require('./routes/highlightsRoutes');
+const uploadRouter = require('./routes/uploadRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(cors()); 
 app.use(express.json());
+
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir);
+}
+
+app.use('/uploads', express.static(uploadsDir));
 
 const mongoUri = process.env.MONGO_URI;
 
@@ -28,6 +38,7 @@ app.use('/api/roster', rosterRouter);
 app.use('/api/schedule', scheduleRouter);
 app.use('/api/results', resultsRouter);
 app.use('/api/highlights', highlightsRouter); 
+app.use('/api/uploads', uploadRouter);
 
 
 app.get('/', (req, res) => {
