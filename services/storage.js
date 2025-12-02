@@ -1,6 +1,5 @@
 const { v2: cloudinary } = require('cloudinary');
 
-// Configure Cloudinary from environment variables
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -9,8 +8,6 @@ cloudinary.config({
 
 const isConfigured = () => !!(process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET);
 
-// Upload an image buffer to Cloudinary
-// Returns { url } or throws
 const uploadBuffer = (buffer, originalName) => {
   if (!isConfigured()) {
     throw new Error('Cloudinary credentials missing. Set CLOUDINARY_* env vars.');
