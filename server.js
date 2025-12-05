@@ -11,6 +11,7 @@ const scheduleRouter = require('./routes/scheduleRoutes');
 const resultsRouter = require('./routes/resultsRoutes');
 const highlightsRouter = require('./routes/highlightsRoutes');
 const uploadRouter = require('./routes/uploadRoutes');
+const eventsRouter = require('./routes/eventsRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -34,6 +35,7 @@ app.use('/api/schedule', scheduleRouter);
 app.use('/api/results', resultsRouter);
 app.use('/api/highlights', highlightsRouter); 
 app.use('/api/uploads', uploadRouter);
+app.use('/api/events', eventsRouter);
 
 
 app.get('/', (req, res) => {
