@@ -20,8 +20,7 @@ const PORT = process.env.PORT || 3001;
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5173',
-  'https://mscs-ui.vercel.app',
-  'https://mscs-ui-staging.vercel.app'
+  'https://mscs-ui-hbad.vercel.app'
 ];
 
 app.use(cors({
