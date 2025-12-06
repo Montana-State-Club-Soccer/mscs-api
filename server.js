@@ -16,9 +16,43 @@ const eventsRouter = require('./routes/eventsRoutes');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+// CORS configuration - allow requests from UI hosted on Vercel or localhost
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'https://mscs-ui.vercel.app',
+  'https://mscs-ui-staging.vercel.app'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or Postman)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) === -1) {
+      // For development, allow all origins
+      if (process.env.NODE_ENV === 'development') {
+        return callback(null, true);
+      }
+      return callback(new Error('Not allowed by CORS'));
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+}));
 app.use(express.json());
-app.use(helmet());
+app.use(helmet({
+  // Disable helmet's ETag handling
+  crossOriginResourcePolicy: false,
+}));
+
+// Disable caching for API responses
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  next();
+});
 
 const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 20 });
 app.use('/api/auth/login', authLimiter);
