@@ -1,4 +1,6 @@
 # MSCS API
+## Contributors:
+### Seth Keirn and Landon Farrar
 
 REST API for the Montana State Club Soccer web platform. Provides authentication, roster management, schedule, results, and highlights endpoints.
 
