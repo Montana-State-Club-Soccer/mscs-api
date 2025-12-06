@@ -139,16 +139,3 @@ mscs-api/
 **Seed fails:**
 - Ensure `NODE_ENV=development` in `.env`
 - Check MongoDB connection is active
-
-PORT=5000
-MONGO_URI=mongodb+srv://lfarrar48:5Ypbmeka5@cluster0.fxs1wls.mongodb.net/mscs?retryWrites=true&w=majority
-JWT_SECRET=mscs_jwt_secret_2024_a8f3b9c2e1d4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0
-NODE_ENV=development
-
-
-
-Here is my .env file:
-PORT=5000
-MONGO_URI=mongodb+srv://sethkeirn_db_user:supercell123@cluster0.fxs1wls.mongodb.net/mscs?retryWrites=true&w=majority
-JWT_SECRET=mscs_jwt_secret_2024_a8f3b9c2e1d4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0
-NODE_ENV=development
